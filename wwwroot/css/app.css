@@ -1,0 +1,95 @@
+/* Aldoc — Design tokens from Figma */
+:root {
+    --accent1: #3b6fb8;
+    --content1: #ffffff;
+    --content2: #f8fafc;
+    --content4: #e2e8f0;
+    --text1: #334155;
+    --text2: #64748b;
+    --text3: #94a3b8;
+    --feedback1: #e7fff6;
+    --feedback2: #2bc06e;
+    --shadow-xs: 0px 1px 2px 0px rgba(10, 13, 18, 0.05);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    background: #ffffff;
+    height: 100%;
+}
+
+.aldoc-app-shell {
+    min-height: 100vh;
+    position: relative;
+}
+
+/* MudTextField override — match Figma input */
+.aldoc-input .mud-input-outlined .mud-input-outlined-border {
+    border-color: var(--content4) !important;
+    border-radius: 8px !important;
+}
+
+.aldoc-input .mud-input-outlined:hover .mud-input-outlined-border {
+    border-color: var(--accent1) !important;
+}
+
+.aldoc-input .mud-input-outlined.mud-focused .mud-input-outlined-border {
+    border-color: var(--accent1) !important;
+    border-width: 1px !important;
+}
+
+.aldoc-input .mud-input-slot {
+    padding: 10px 14px !important;
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    color: var(--text1) !important;
+}
+
+.aldoc-input input::placeholder {
+    color: var(--text3) !important;
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+.aldoc-input .mud-input-label {
+    display: none !important;
+}
+
+/* MudButton override */
+.aldoc-btn {
+    border-radius: 25px !important;
+    text-transform: none !important;
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+    height: 44px !important;
+}
+
+.aldoc-btn:hover {
+    box-shadow: none !important;
+}
+
+/* Remove MudBlazor default elevation */
+.mud-button-root {
+    box-shadow: none !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 4px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--content4);
+    border-radius: 4px;
+}

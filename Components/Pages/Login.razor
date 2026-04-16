@@ -1,0 +1,167 @@
+@page "/login"
+@rendermode InteractiveServer
+@inject NavigationManager Nav
+
+<PageTitle>Iniciar sesión - Aldoc</PageTitle>
+
+<div style="
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    overflow-y: auto;">
+
+    <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 48px;
+        width: 320px;
+        padding: 100px 0 217px;">
+
+        <!-- Logo -->
+        <div style="height: 40px; width: 144.44px;">
+            <img src="http://localhost:3845/assets/0f4154c33ac60c7777ae9915e70ce583c211c83e.svg"
+                 alt="Aldoc"
+                 style="width: 100%; height: 100%; object-fit: contain;" />
+        </div>
+
+        <!-- Title -->
+        <p style="
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 1.5;
+            letter-spacing: -0.6px;
+            color: #3b6fb8;
+            margin: 0;">
+            Bienvenido/a
+        </p>
+
+        <!-- Form -->
+        <div style="display: flex; flex-direction: column; gap: 24px; width: 100%;">
+
+            <!-- Email field -->
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+                <label style="
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 1.5;
+                    color: #334155;">
+                    Correo
+                </label>
+                <MudTextField @bind-Value="_email"
+                              Placeholder="Ingrese su correo"
+                              Variant="Variant.Outlined"
+                              InputType="InputType.Email"
+                              Immediate="true"
+                              Style="
+                                font-family: 'Open Sans', sans-serif;
+                                font-size: 16px;
+                                font-weight: 400;
+                                line-height: 1.5;
+                                color: #334155;
+                                background: #ffffff;
+                                border-radius: 8px;
+                                box-shadow: 0px 1px 2px 0px rgba(10,13,18,0.05);"
+                              Class="aldoc-input" />
+            </div>
+
+            <!-- Password field -->
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+                <label style="
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 1.5;
+                    color: #334155;">
+                    Contraseña
+                </label>
+                <MudTextField @bind-Value="_password"
+                              Placeholder="Ingrese su contraseña"
+                              Variant="Variant.Outlined"
+                              InputType="@_passwordInputType"
+                              Immediate="true"
+                              Adornment="Adornment.End"
+                              AdornmentIcon="@_passwordIcon"
+                              OnAdornmentClick="TogglePasswordVisibility"
+                              Style="
+                                font-family: 'Open Sans', sans-serif;
+                                font-size: 16px;
+                                font-weight: 400;
+                                line-height: 1.5;
+                                color: #334155;
+                                background: #ffffff;
+                                border-radius: 8px;
+                                box-shadow: 0px 1px 2px 0px rgba(10,13,18,0.05);"
+                              Class="aldoc-input" />
+            </div>
+
+            <!-- Login button -->
+            <MudButton OnClick="HandleLogin"
+                       Disabled="@(!CanLogin)"
+                       Style="@GetButtonStyle()"
+                       Class="aldoc-btn"
+                       FullWidth="true">
+                Iniciar sesión
+            </MudButton>
+
+            <!-- Register link -->
+            <p style="
+                font-family: 'Open Sans', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #3b6fb8;
+                text-align: center;
+                margin: 0;">
+                ¿No tienes cuenta?
+                <a href="/registro"
+                   style="color: #3b6fb8; text-decoration: underline; font-weight: 400;">
+                    Regístrate acá
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Welcome Modal -->
+@if (_showWelcomeModal)
+{
+    <WelcomeModal OnClose="CloseWelcomeModal" />
+}
+
+@code {
+    private string _email = string.Empty;
+    private string _password = string.Empty;
+    private bool _showWelcomeModal = false;
+    private bool _showPassword = false;
+
+    private InputType _passwordInputType => _showPassword ? InputType.Text : InputType.Password;
+    private string _passwordIcon => _showPassword ? Icons.Material.Filled.VisibilityOff : Icons.Material.Filled.Visibility;
+
+    private bool CanLogin => !string.IsNullOrWhiteSpace(_email) && !string.IsNullOrWhiteSpace(_password);
+
+    private string GetButtonStyle()
+    {
+        var bg = CanLogin ? "#3b6fb8" : "#e2e8f0";
+        return $"background:{bg}; color:#ffffff; border-radius:25px; height:44px; font-family:'Open Sans',sans-serif; font-size:14px; font-weight:600; line-height:1.5; text-transform:none; box-shadow:none; padding:8px 16px; width:100%;";
+    }
+
+    private void TogglePasswordVisibility() => _showPassword = !_showPassword;
+
+    private void HandleLogin()
+    {
+        if (CanLogin)
+            _showWelcomeModal = true;
+    }
+
+    private void CloseWelcomeModal()
+    {
+        _showWelcomeModal = false;
+        Nav.NavigateTo("/dashboard");
+    }
+}

@@ -1,0 +1,71 @@
+@page "/"
+@rendermode InteractiveServer
+@inject NavigationManager Nav
+@implements IDisposable
+
+<PageTitle>Aldoc</PageTitle>
+
+<div style="
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 56px;
+    padding: 100px 0;
+    background: linear-gradient(180deg, #79c3ff 0.962%, #163f79 100%);
+    overflow: hidden;">
+
+    <!-- Background texture overlay -->
+    <div style="
+        position: absolute;
+        inset: 0;
+        background-image: url('http://localhost:3845/assets/a0bc134650316339cd0a1940501de751539fafae.png');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.20;
+        pointer-events: none;">
+    </div>
+
+    <!-- Logo -->
+    <div style="position: relative; z-index: 1; height: 39.45px; width: 136px;">
+        <img src="http://localhost:3845/assets/53707b005db9852d5486841cfd976e0216aa7673.svg"
+             alt="Aldoc"
+             style="width: 100%; height: 100%; object-fit: contain;" />
+    </div>
+
+    <!-- Tagline -->
+    <p style="
+        position: relative;
+        z-index: 1;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+        line-height: 1.5;
+        letter-spacing: -0.6px;
+        color: #ffffff;
+        text-align: center;
+        width: 280px;
+        margin: 0;">
+        <strong>Cuidar </strong><span style="font-weight: 300;">de tu</span> <strong>salud </strong><span style="font-weight: 300;">es nuestro</span> propósito
+    </p>
+</div>
+
+@code {
+    private CancellationTokenSource _cts = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                await Task.Delay(3000, _cts.Token);
+                Nav.NavigateTo("/login");
+            }
+            catch (TaskCanceledException) { }
+        }
+    }
+
+    public void Dispose() => _cts.Cancel();
+}

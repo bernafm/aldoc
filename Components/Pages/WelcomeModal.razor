@@ -1,0 +1,133 @@
+@rendermode InteractiveServer
+
+<!-- Dimmed overlay -->
+<div style="
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;"
+     @onclick="HandleOverlayClick">
+
+    <!-- Modal card -->
+    <div style="
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 16px;
+        width: 304px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        position: relative;
+        z-index: 1001;"
+         @onclick:stopPropagation="true">
+
+        <!-- Close button -->
+        <div style="display: flex; justify-content: flex-end;">
+            <MudIconButton Icon="@Icons.Material.Filled.Close"
+                           Size="Size.Small"
+                           OnClick="OnClose"
+                           Style="color:#334155; padding:0; width:24px; height:24px;" />
+        </div>
+
+        <!-- Header: greeting + rocket -->
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%;">
+            <div style="display: flex; gap: 4px; align-items: center; justify-content: center;">
+                <img src="http://localhost:3845/assets/c311fe31e2c597256d8729fed5f2a131f4aaa151.png"
+                     alt="waving hand" style="width:24px; height:24px;" />
+                <p style="
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 20px;
+                    font-weight: 700;
+                    line-height: 1.5;
+                    letter-spacing: -0.6px;
+                    color: #334155;
+                    margin: 0;">
+                    ¡Hola!
+                </p>
+                <img src="http://localhost:3845/assets/3d6b605608139f4862bf5b26accdd0daefb82269.png"
+                     alt="fire" style="width:24px; height:24px;" />
+            </div>
+            <p style="
+                font-family: 'Open Sans', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #64748b;
+                text-align: center;
+                margin: 0;">
+                Bienvenido/a a Aldoc. ¿Cómo te sientes hoy?
+            </p>
+        </div>
+
+        <!-- Rocket image -->
+        <div style="display: flex; justify-content: center;">
+            <img src="http://localhost:3845/assets/d9b29dff13000a25bb250bf86bfff13669c827c0.png"
+                 alt="rocket" style="width:72px; height:72px;" />
+        </div>
+
+        <!-- Mood emojis -->
+        <div style="display: flex; gap: 8px; justify-content: center;">
+            @foreach (var emoji in _moods)
+            {
+                <div style="
+                    background: @(emoji.Selected ? "#3b6fb820" : "#f8fafc");
+                    border-radius: 12px;
+                    width: 60px;
+                    height: 60px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    border: @(emoji.Selected ? "1.5px solid #3b6fb8" : "1.5px solid transparent");"
+                     @onclick="() => SelectMood(emoji)">
+                    <img src="@emoji.Src" alt="@emoji.Label" style="width:30px; height:30px;" />
+                </div>
+            }
+        </div>
+
+        <!-- CTA button -->
+        <MudButton OnClick="OnClose"
+                   FullWidth="true"
+                   Style="
+                    background:#3b6fb8;
+                    color:#ffffff;
+                    border-radius:25px;
+                    height:44px;
+                    font-family:'Open Sans',sans-serif;
+                    font-size:14px;
+                    font-weight:600;
+                    line-height:1.5;
+                    text-transform:none;
+                    box-shadow:none;">
+            ¡Comenzar!
+        </MudButton>
+    </div>
+</div>
+
+@code {
+    [Parameter] public EventCallback OnClose { get; set; }
+
+    private record MoodOption(string Src, string Label, bool Selected = false)
+    {
+        public bool Selected { get; set; } = Selected;
+    }
+
+    private List<MoodOption> _moods = new()
+    {
+        new("http://localhost:3845/assets/50d89e3a2e13e52a1f1b1a8deaee4b90c3b44bb2.png", "Cansado"),
+        new("http://localhost:3845/assets/2910d7258480ddf2477a93b79322f226007e8603.png", "Confundido"),
+        new("http://localhost:3845/assets/058880d21d05588c974e703380f215a6c7b9f068.png", "Bien"),
+        new("http://localhost:3845/assets/63e4b8cdf7500d3c92419629df95b90772cb01cb.png", "Genial"),
+    };
+
+    private void SelectMood(MoodOption selected)
+    {
+        foreach (var m in _moods) m.Selected = false;
+        selected.Selected = true;
+    }
+
+    private void HandleOverlayClick() => OnClose.InvokeAsync();
+}
