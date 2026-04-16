@@ -1,0 +1,194 @@
+@page "/olvide-contrasena"
+@rendermode InteractiveServer
+@inject NavigationManager Nav
+@inject AldocWeb.Services.AppSession Session
+
+<PageTitle>Olvidé mi contraseña — Aldoc</PageTitle>
+
+<div style="min-height:100vh;background:#fff;display:flex;flex-direction:column;align-items:center;padding:52px 36px 60px;">
+    <div style="width:100%;max-width:320px;display:flex;flex-direction:column;gap:0;">
+
+        <!-- Volver -->
+        @if (_step == 1)
+        {
+            <a href="/login" style="display:flex;align-items:center;gap:6px;text-decoration:none;width:fit-content;margin-bottom:40px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B6FB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+                </svg>
+                <span style="font-size:14px;color:#64748B;">Volver</span>
+            </a>
+        }
+        else
+        {
+            <button @onclick="Volver" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;padding:0;width:fit-content;margin-bottom:40px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B6FB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+                </svg>
+                <span style="font-size:14px;color:#64748B;">Volver</span>
+            </button>
+        }
+
+        <!-- Logo -->
+        <div style="display:flex;justify-content:center;margin-bottom:48px;">
+            <img src="/images/logo.svg" alt="aldoc" style="width:144px;height:40px;" />
+        </div>
+
+        <!-- PASO 1: Ingresar correo -->
+        @if (_step == 1)
+        {
+            <div style="display:flex;flex-direction:column;gap:24px;">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;">
+                    <span style="font-size:32px;">🔒</span>
+                    <p style="font-size:16px;font-weight:700;color:#3B6FB8;margin:0;">¿Olvidaste tu contraseña?</p>
+                    <p style="font-size:14px;font-weight:400;color:#64748B;margin:0;line-height:1.5;">
+                        Ingresa tu correo y te enviaremos un enlace para restablecerla.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label>Correo</label>
+                    <input type="email" placeholder="Ingresa tu correo" @bind="_correo" @bind:event="oninput" />
+                </div>
+
+                <button class="btn-primary" disabled="@(!CanEnviar)" @onclick="EnviarEnlace">
+                    Enviar código de verificación
+                </button>
+            </div>
+        }
+
+        <!-- PASO 2: Verificar código -->
+        @if (_step == 2)
+        {
+            <div style="display:flex;flex-direction:column;align-items:center;gap:32px;">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;">
+                    <span style="font-size:32px;">📧</span>
+                    <p style="font-size:16px;font-weight:700;color:#3B6FB8;margin:0;">Verifica tu correo</p>
+                    <p style="font-size:16px;font-weight:400;color:#64748B;margin:0;">Enviamos un código de 6 dígitos a</p>
+                    <p style="font-size:14px;font-weight:600;color:#334155;margin:0;">@CorreoOculto</p>
+                </div>
+
+                <!-- 6 digit inputs -->
+                <div style="display:flex;gap:8px;justify-content:center;">
+                    @for (int i = 0; i < 6; i++)
+                    {
+                        var idx = i;
+                        <input id="opc-@idx"
+                               maxlength="1"
+                               type="text"
+                               inputmode="numeric"
+                               value="@_codigo[idx]"
+                               @oninput="e => OnCodigoInput(e, idx)"
+                               style="width:44px;height:44px;border:1px solid #E2E8F0;border-radius:8px;text-align:center;font-size:18px;font-weight:600;color:#334155;outline:none;font-family:'Open Sans',sans-serif;" />
+                    }
+                </div>
+
+                <button class="btn-primary" disabled="@(!CanCodigo)" @onclick="() => _step = 3">
+                    Continuar
+                </button>
+
+                <button @onclick="EnviarEnlace"
+                        style="background:none;border:none;cursor:pointer;font-size:14px;color:#3B6FB8;font-family:'Open Sans',sans-serif;padding:0;">
+                    ¿No recibiste el enlace? <span style="text-decoration:underline;">Reenviar</span>
+                </button>
+            </div>
+        }
+
+        <!-- PASO 3: Nueva contraseña -->
+        @if (_step == 3)
+        {
+            <div style="display:flex;flex-direction:column;gap:24px;">
+                <p style="font-size:16px;font-weight:700;color:#3B6FB8;margin:0;text-align:center;">Crea una nueva contraseña</p>
+
+                <div style="display:flex;flex-direction:column;gap:16px;">
+                    <div class="field">
+                        <label>Nueva contraseña</label>
+                        <input type="password" placeholder="Ingresa tu contraseña" @bind="_nuevaPass" @bind:event="oninput" />
+                    </div>
+                    <div class="field">
+                        <label>Confirmar contraseña</label>
+                        <input type="password" placeholder="Confirma tu contraseña" @bind="_confirmaPass" @bind:event="oninput" />
+                    </div>
+                    <p style="font-size:12px;color:#3B6FB8;margin:0;line-height:1.5;">
+                        Debe tener al menos 8 caracteres, una mayúscula y un número.
+                    </p>
+                </div>
+
+                <button class="btn-primary" disabled="@(!CanGuardar)" @onclick="() => _step = 4">
+                    Guardar contraseña
+                </button>
+            </div>
+        }
+
+        <!-- PASO 4: Éxito -->
+        @if (_step == 4)
+        {
+            <div style="display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center;">
+                <div style="background:#E7FFF6;border-radius:100px;padding:6px 20px;">
+                    <span style="font-size:14px;font-weight:600;color:#2BC06E;">Contraseña actualizada con éxito</span>
+                </div>
+
+                <p style="font-size:14px;color:#64748B;margin:0;line-height:1.5;">
+                    Tu contraseña fue restablecida exitosamente.<br/>Ya puedes iniciar sesión.
+                </p>
+
+                <button class="btn-primary" @onclick="IrALogin" style="margin-top:16px;">
+                    Iniciar sesión
+                </button>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private int _step = 1;
+    private string _correo = "";
+    private string _nuevaPass = "";
+    private string _confirmaPass = "";
+    private string[] _codigo = new string[6];
+
+    private bool CanEnviar => !string.IsNullOrWhiteSpace(_correo) && _correo.Contains('@');
+    private bool CanCodigo => _codigo.All(c => !string.IsNullOrEmpty(c));
+
+    private bool CanGuardar =>
+        _nuevaPass.Length >= 8 &&
+        _nuevaPass.Any(char.IsUpper) &&
+        _nuevaPass.Any(char.IsDigit) &&
+        _nuevaPass == _confirmaPass;
+
+    private string CorreoOculto
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(_correo)) return "";
+            var parts = _correo.Split('@');
+            if (parts.Length != 2) return _correo;
+            var name = parts[0];
+            var shown = name.Length > 3 ? name[..3] : name;
+            return $"{shown}***@{parts[1]}";
+        }
+    }
+
+    private void EnviarEnlace()
+    {
+        _codigo = new string[6];
+        _step = 2;
+    }
+
+    private void OnCodigoInput(ChangeEventArgs e, int idx)
+    {
+        var val = e.Value?.ToString() ?? "";
+        _codigo[idx] = val.Length > 0 ? val[^1..] : "";
+    }
+    private void Volver() => _step--;
+    private void IrALogin()
+    {
+        Session.SplashShown = true;
+        Nav.NavigateTo("/login");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !Session.SplashShown)
+            Nav.NavigateTo("/", replace: true);
+    }
+}
