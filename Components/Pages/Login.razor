@@ -1,167 +1,78 @@
 @page "/login"
 @rendermode InteractiveServer
 @inject NavigationManager Nav
+@inject AldocWeb.Services.AppSession Session
 
-<PageTitle>Iniciar sesión - Aldoc</PageTitle>
+<PageTitle>Iniciar sesión — Aldoc</PageTitle>
 
-<div style="
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #ffffff;
-    overflow-y: auto;">
-
-    <div style="
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 48px;
-        width: 320px;
-        padding: 100px 0 217px;">
+<div style="min-height:100vh;display:flex;align-items:flex-start;justify-content:center;background:#fff;overflow-y:auto;padding:60px 36px 80px;">
+    <div style="width:100%;max-width:320px;display:flex;flex-direction:column;align-items:center;gap:40px;">
 
         <!-- Logo -->
-        <div style="height: 40px; width: 144.44px;">
-            <img src="http://localhost:3845/assets/0f4154c33ac60c7777ae9915e70ce583c211c83e.svg"
-                 alt="Aldoc"
-                 style="width: 100%; height: 100%; object-fit: contain;" />
-        </div>
+        <img src="/images/logo.svg" alt="aldoc" style="width:144px;height:40px;" />
 
         <!-- Title -->
-        <p style="
-            font-family: 'Open Sans', sans-serif;
-            font-weight: 700;
-            font-size: 20px;
-            line-height: 1.5;
-            letter-spacing: -0.6px;
-            color: #3b6fb8;
-            margin: 0;">
+        <p style="font-size:20px;font-weight:700;line-height:1.5;color:#3B6FB8;text-align:center;">
             Bienvenido/a
         </p>
 
         <!-- Form -->
-        <div style="display: flex; flex-direction: column; gap: 24px; width: 100%;">
+        <div style="display:flex;flex-direction:column;gap:20px;width:100%;">
 
-            <!-- Email field -->
-            <div style="display: flex; flex-direction: column; gap: 6px;">
-                <label style="
-                    font-family: 'Open Sans', sans-serif;
-                    font-size: 14px;
-                    font-weight: 400;
-                    line-height: 1.5;
-                    color: #334155;">
-                    Correo
-                </label>
-                <MudTextField @bind-Value="_email"
-                              Placeholder="Ingrese su correo"
-                              Variant="Variant.Outlined"
-                              InputType="InputType.Email"
-                              Immediate="true"
-                              Style="
-                                font-family: 'Open Sans', sans-serif;
-                                font-size: 16px;
-                                font-weight: 400;
-                                line-height: 1.5;
-                                color: #334155;
-                                background: #ffffff;
-                                border-radius: 8px;
-                                box-shadow: 0px 1px 2px 0px rgba(10,13,18,0.05);"
-                              Class="aldoc-input" />
+            <div class="field">
+                <label>Correo</label>
+                <input type="email" placeholder="Ingrese su correo" @bind="_email" @bind:event="oninput" />
             </div>
 
-            <!-- Password field -->
-            <div style="display: flex; flex-direction: column; gap: 6px;">
-                <label style="
-                    font-family: 'Open Sans', sans-serif;
-                    font-size: 14px;
-                    font-weight: 400;
-                    line-height: 1.5;
-                    color: #334155;">
-                    Contraseña
-                </label>
-                <MudTextField @bind-Value="_password"
-                              Placeholder="Ingrese su contraseña"
-                              Variant="Variant.Outlined"
-                              InputType="@_passwordInputType"
-                              Immediate="true"
-                              Adornment="Adornment.End"
-                              AdornmentIcon="@_passwordIcon"
-                              OnAdornmentClick="TogglePasswordVisibility"
-                              Style="
-                                font-family: 'Open Sans', sans-serif;
-                                font-size: 16px;
-                                font-weight: 400;
-                                line-height: 1.5;
-                                color: #334155;
-                                background: #ffffff;
-                                border-radius: 8px;
-                                box-shadow: 0px 1px 2px 0px rgba(10,13,18,0.05);"
-                              Class="aldoc-input" />
+            <div class="field">
+                <label>Contraseña</label>
+                <div style="position:relative;">
+                    <input type="@(_showPwd ? "text" : "password")"
+                           placeholder="Ingrese su contraseña"
+                           @bind="_password" @bind:event="oninput"
+                           style="padding-right:44px;width:100%;height:44px;padding-left:14px;font-family:var(--font);font-size:16px;color:var(--color-text);background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-input);outline:none;" />
+                    <button type="button"
+                            @onclick="() => _showPwd = !_showPwd"
+                            style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:0;color:#94A3B8;display:flex;align-items:center;">
+                        @if (_showPwd)
+                        {
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                        }
+                        else
+                        {
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        }
+                    </button>
+                </div>
             </div>
 
-            <!-- Login button -->
-            <MudButton OnClick="HandleLogin"
-                       Disabled="@(!CanLogin)"
-                       Style="@GetButtonStyle()"
-                       Class="aldoc-btn"
-                       FullWidth="true">
+            <button class="btn-primary" disabled="@(!CanLogin)" @onclick="HandleLogin">
                 Iniciar sesión
-            </MudButton>
+            </button>
 
-            <!-- Register link -->
-            <p style="
-                font-family: 'Open Sans', sans-serif;
-                font-size: 14px;
-                font-weight: 400;
-                line-height: 1.5;
-                color: #3b6fb8;
-                text-align: center;
-                margin: 0;">
+            <p style="font-size:14px;text-align:center;color:#3B6FB8;">
                 ¿No tienes cuenta?
-                <a href="/registro"
-                   style="color: #3b6fb8; text-decoration: underline; font-weight: 400;">
-                    Regístrate acá
-                </a>
+                <a href="/crear-cuenta" style="color:#3B6FB8;font-weight:600;">Regístrate acá</a>
             </p>
         </div>
     </div>
 </div>
 
-<!-- Welcome Modal -->
-@if (_showWelcomeModal)
-{
-    <WelcomeModal OnClose="CloseWelcomeModal" />
-}
-
 @code {
-    private string _email = string.Empty;
-    private string _password = string.Empty;
-    private bool _showWelcomeModal = false;
-    private bool _showPassword = false;
+    private string _email = "";
+    private string _password = "";
+    private bool _showPwd = false;
 
-    private InputType _passwordInputType => _showPassword ? InputType.Text : InputType.Password;
-    private string _passwordIcon => _showPassword ? Icons.Material.Filled.VisibilityOff : Icons.Material.Filled.Visibility;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !Session.SplashShown)
+            Nav.NavigateTo("/", replace: true);
+    }
 
     private bool CanLogin => !string.IsNullOrWhiteSpace(_email) && !string.IsNullOrWhiteSpace(_password);
 
-    private string GetButtonStyle()
-    {
-        var bg = CanLogin ? "#3b6fb8" : "#e2e8f0";
-        return $"background:{bg}; color:#ffffff; border-radius:25px; height:44px; font-family:'Open Sans',sans-serif; font-size:14px; font-weight:600; line-height:1.5; text-transform:none; box-shadow:none; padding:8px 16px; width:100%;";
-    }
-
-    private void TogglePasswordVisibility() => _showPassword = !_showPassword;
-
     private void HandleLogin()
     {
-        if (CanLogin)
-            _showWelcomeModal = true;
-    }
-
-    private void CloseWelcomeModal()
-    {
-        _showWelcomeModal = false;
-        Nav.NavigateTo("/dashboard");
+        if (CanLogin) Nav.NavigateTo("/dashboard");
     }
 }

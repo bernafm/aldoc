@@ -4,11 +4,6 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>AldocWeb</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="MudBlazor" Version="7.*" />
-  </ItemGroup>
 
 </Project>

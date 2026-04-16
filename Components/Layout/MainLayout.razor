@@ -1,28 +1,3 @@
 @inherits LayoutComponentBase
 
-<MudThemeProvider Theme="_aldocTheme" />
-<MudPopoverProvider />
-<MudDialogProvider />
-<MudSnackbarProvider />
-
-<div class="aldoc-app-shell">
-    @Body
-</div>
-
-@code {
-    private MudTheme _aldocTheme = new MudTheme
-    {
-        PaletteLight = new PaletteLight
-        {
-            Primary = "#3b6fb8",
-            PrimaryContrastText = "#ffffff",
-            Background = "#ffffff",
-            Surface = "#f8fafc",
-            TextPrimary = "#334155",
-            TextSecondary = "#64748b",
-            ActionDefault = "#94a3b8",
-            LinesDefault = "#e2e8f0",
-            TableLines = "#e2e8f0",
-        },
-    };
-}
+@Body

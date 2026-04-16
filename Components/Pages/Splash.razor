@@ -1,54 +1,27 @@
 @page "/"
 @rendermode InteractiveServer
 @inject NavigationManager Nav
+@inject AldocWeb.Services.AppSession Session
 @implements IDisposable
 
 <PageTitle>Aldoc</PageTitle>
 
-<div style="
-    position: fixed;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 56px;
-    padding: 100px 0;
-    background: linear-gradient(180deg, #79c3ff 0.962%, #163f79 100%);
-    overflow: hidden;">
+<div style="position:fixed;inset:0;overflow:hidden;background:linear-gradient(180deg,#79C3FF 0.96%,#163F79 100%);">
 
-    <!-- Background texture overlay -->
-    <div style="
-        position: absolute;
-        inset: 0;
-        background-image: url('http://localhost:3845/assets/a0bc134650316339cd0a1940501de751539fafae.png');
-        background-size: cover;
-        background-position: center;
-        opacity: 0.20;
-        pointer-events: none;">
+    <!-- Foto de fondo al 20% -->
+    <div style="position:absolute;inset:0;background-image:url('/images/splash-bg.jpg');background-size:cover;background-position:center;opacity:0.20;"></div>
+
+    <!-- Contenido centrado -->
+    <div style="position:relative;z-index:1;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;">
+
+        <!-- Logo blanco -->
+        <img src="/images/logo-white.svg" alt="aldoc" style="width:136px;height:39px;" />
+
+        <!-- Tagline -->
+        <p style="font-family:'Open Sans',sans-serif;font-size:20px;line-height:1.5;letter-spacing:-0.6px;color:#fff;text-align:center;width:280px;margin:0;">
+            <span style="font-weight:700;">Cuidar </span><span style="font-weight:300;">de tu </span><span style="font-weight:700;">salud </span><span style="font-weight:300;">es nuestro </span><span style="font-weight:700;">propósito</span>
+        </p>
     </div>
-
-    <!-- Logo -->
-    <div style="position: relative; z-index: 1; height: 39.45px; width: 136px;">
-        <img src="http://localhost:3845/assets/53707b005db9852d5486841cfd976e0216aa7673.svg"
-             alt="Aldoc"
-             style="width: 100%; height: 100%; object-fit: contain;" />
-    </div>
-
-    <!-- Tagline -->
-    <p style="
-        position: relative;
-        z-index: 1;
-        font-family: 'Open Sans', sans-serif;
-        font-size: 20px;
-        line-height: 1.5;
-        letter-spacing: -0.6px;
-        color: #ffffff;
-        text-align: center;
-        width: 280px;
-        margin: 0;">
-        <strong>Cuidar </strong><span style="font-weight: 300;">de tu</span> <strong>salud </strong><span style="font-weight: 300;">es nuestro</span> propósito
-    </p>
 </div>
 
 @code {
@@ -61,6 +34,7 @@
             try
             {
                 await Task.Delay(3000, _cts.Token);
+                Session.SplashShown = true;
                 Nav.NavigateTo("/login");
             }
             catch (TaskCanceledException) { }

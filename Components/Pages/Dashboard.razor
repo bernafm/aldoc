@@ -1,18 +1,18 @@
 @page "/dashboard"
 @rendermode InteractiveServer
+@inject NavigationManager Nav
+@inject AldocWeb.Services.AppSession Session
 
-<PageTitle>Inicio - Aldoc</PageTitle>
+<PageTitle>Inicio — Aldoc</PageTitle>
 
-<div style="
-    min-height: 100vh;
-    background: #f8fafc;
-    display: flex;
-    align-items: center;
-    justify-content: center;">
-    <p style="
-        font-family: 'Open Sans', sans-serif;
-        font-size: 16px;
-        color: #334155;">
-        Dashboard — próximamente
-    </p>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#fff;">
+    <p style="font-size:16px;color:#64748B;">Dashboard — próximamente</p>
 </div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !Session.SplashShown)
+            Nav.NavigateTo("/", replace: true);
+    }
+}

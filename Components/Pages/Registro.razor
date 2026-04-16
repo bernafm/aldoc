@@ -1,0 +1,85 @@
+@page "/registro"
+@rendermode InteractiveServer
+@inject NavigationManager Nav
+@inject AldocWeb.Services.AppSession Session
+
+<PageTitle>Crear cuenta — Aldoc</PageTitle>
+
+<div style="min-height:100vh;display:flex;justify-content:center;background:#fff;overflow-y:auto;padding:60px 36px 80px;">
+    <div style="width:100%;max-width:320px;display:flex;flex-direction:column;align-items:center;gap:40px;">
+
+        <!-- Logo icon -->
+        <img src="/images/doctor.svg" alt="" style="width:90px;height:90px;" />
+
+        <!-- Title -->
+        <p style="font-size:20px;font-weight:700;line-height:1.5;color:#3B6FB8;text-align:center;width:100%;">
+            Completa tu perfil
+        </p>
+
+        <!-- Form -->
+        <div style="display:flex;flex-direction:column;gap:20px;width:100%;">
+
+            <div class="field">
+                <label>Nombre Completo</label>
+                <input type="text" placeholder="Ingresa nombre completo" @bind="_nombre" @bind:event="oninput" />
+            </div>
+
+            <div class="field">
+                <label>Fecha de nacimiento</label>
+                <input type="text" placeholder="--/--/----" @bind="_fechaNac" @bind:event="oninput" />
+            </div>
+
+            <div class="field">
+                <label>Ingresa tu RUT / DNI</label>
+                <input type="text" placeholder="Ingresa tu RUT sin puntos ni guión" @bind="_rut" @bind:event="oninput" />
+            </div>
+
+            <div class="field">
+                <label>Correo</label>
+                <input type="email" placeholder="Ingresa tu correo" @bind="_correo" @bind:event="oninput" />
+            </div>
+
+            <div class="field">
+                <label>Crear contraseña</label>
+                <input type="password" placeholder="Crea tu contraseña" @bind="_password" @bind:event="oninput" />
+            </div>
+
+            <label class="checkbox-row">
+                <input type="checkbox" @bind="_terminos" />
+                Acepto los términos y condiciones
+            </label>
+
+            <button class="btn-primary" disabled="@(!CanGuardar)" @onclick="HandleGuardar">
+                Guardar datos
+            </button>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string _nombre = "";
+    private string _fechaNac = "";
+    private string _rut = "";
+    private string _correo = "";
+    private string _password = "";
+    private bool _terminos = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !Session.SplashShown)
+            Nav.NavigateTo("/", replace: true);
+    }
+
+    private bool CanGuardar =>
+        !string.IsNullOrWhiteSpace(_nombre) &&
+        !string.IsNullOrWhiteSpace(_fechaNac) &&
+        !string.IsNullOrWhiteSpace(_rut) &&
+        !string.IsNullOrWhiteSpace(_correo) &&
+        !string.IsNullOrWhiteSpace(_password) &&
+        _terminos;
+
+    private void HandleGuardar()
+    {
+        if (CanGuardar) Nav.NavigateTo("/dashboard");
+    }
+}

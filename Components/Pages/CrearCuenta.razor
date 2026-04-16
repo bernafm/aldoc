@@ -1,0 +1,250 @@
+@page "/crear-cuenta"
+@rendermode InteractiveServer
+@inject NavigationManager Nav
+@inject AldocWeb.Services.AppSession Session
+
+<PageTitle>Crear cuenta — Aldoc</PageTitle>
+
+<div style="min-height:100vh;background:#fff;display:flex;flex-direction:column;align-items:center;padding:0 36px 60px;">
+
+    <!-- Header: Volver + Steps -->
+    <div style="width:100%;max-width:320px;padding-top:52px;display:flex;flex-direction:column;gap:32px;">
+
+        <!-- Volver -->
+        @if (_step > 1)
+        {
+            <button @onclick="Volver" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;padding:0;width:fit-content;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B6FB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+                </svg>
+                <span style="font-size:14px;color:#64748B;">Volver</span>
+            </button>
+        }
+        else
+        {
+            <a href="/login" style="display:flex;align-items:center;gap:6px;text-decoration:none;width:fit-content;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B6FB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+                </svg>
+                <span style="font-size:14px;color:#64748B;">Volver</span>
+            </a>
+        }
+
+        <!-- Steps indicator -->
+        <div style="display:flex;align-items:center;gap:6px;justify-content:center;">
+            @for (int i = 1; i <= 4; i++)
+            {
+                var si = i;
+                if (si == _step)
+                {
+                    <div style="width:40px;height:12px;border-radius:100px;background:#3B6FB8;"></div>
+                }
+                else if (si < _step)
+                {
+                    <div style="width:12px;height:12px;border-radius:100px;background:#3B6FB8;"></div>
+                }
+                else
+                {
+                    <div style="width:12px;height:12px;border-radius:100px;background:#E2E8F0;"></div>
+                }
+            }
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div style="width:100%;max-width:320px;margin-top:48px;">
+
+        @if (_step == 1)
+        {
+            <!-- Paso 1: Tipo de cuenta -->
+            <div style="display:flex;flex-direction:column;gap:32px;">
+                <p style="font-size:20px;font-weight:700;color:#3B6FB8;margin:0;">Crear cuenta como:</p>
+
+                <div style="display:flex;flex-direction:column;gap:12px;">
+                    @foreach (var (tipo, icon, desc) in _tipos)
+                    {
+                        var t = tipo;
+                        var selected = _tipoSeleccionado == t;
+                        <button @onclick="() => _tipoSeleccionado = t"
+                                style="display:flex;align-items:center;gap:16px;padding:16px;border-radius:16px;border:1.5px solid @(selected ? "#3B6FB8" : "#E2E8F0");background:@(selected ? "#F8FAFC" : "#FFFFFF");cursor:pointer;text-align:left;width:100%;">
+                            <div style="width:39px;height:39px;border-radius:6px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #F1F5F9;">
+                                @((MarkupString)icon)
+                            </div>
+                            <div style="display:flex;flex-direction:column;gap:4px;">
+                                <span style="font-size:14px;font-weight:400;color:#334155;">@t</span>
+                                <span style="font-size:12px;font-weight:400;color:#64748B;line-height:1.4;">@desc</span>
+                            </div>
+                        </button>
+                    }
+                </div>
+
+                <button class="btn-primary" disabled="@(string.IsNullOrEmpty(_tipoSeleccionado))" @onclick="() => _step = 2">
+                    Continuar
+                </button>
+            </div>
+        }
+
+        @if (_step == 2)
+        {
+            <!-- Paso 2: Completa tu perfil -->
+            <div style="display:flex;flex-direction:column;gap:24px;">
+                <p style="font-size:20px;font-weight:700;color:#3B6FB8;margin:0;">Completa tu perfil</p>
+
+                <div style="display:flex;flex-direction:column;gap:16px;">
+                    <div class="field">
+                        <label>Nombre Completo</label>
+                        <input type="text" placeholder="Ingresa nombre completo" @bind="_nombre" @bind:event="oninput" />
+                    </div>
+                    <div class="field">
+                        <label>Fecha de nacimiento</label>
+                        <input type="date" @bind="_fechaNac" class="input-date" />
+                    </div>
+                    <div class="field">
+                        <label>Ingresa tu RUT / DNI</label>
+                        <input type="text" placeholder="Ingresa tu RUT sin puntos ni guión" @bind="_rut" @bind:event="oninput" />
+                    </div>
+                    <div class="field">
+                        <label>Correo</label>
+                        <input type="email" placeholder="Ingresa tu correo" @bind="_correo" @bind:event="oninput" />
+                    </div>
+                    <div class="field">
+                        <label>Crear contraseña</label>
+                        <input type="password" placeholder="Crea tu contraseña" @bind="_password" @bind:event="oninput" />
+                    </div>
+
+                    <label class="checkbox-row">
+                        <input type="checkbox" @bind="_terminos" />
+                        Acepto los términos y condiciones
+                    </label>
+                </div>
+
+                <button class="btn-primary" disabled="@(!CanPaso2)" @onclick="() => _step = 3">
+                    Continuar
+                </button>
+            </div>
+        }
+
+        @if (_step == 3)
+        {
+            <!-- Paso 3: Verificar correo -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:32px;">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;">
+                    <span style="font-size:32px;">📧</span>
+                    <p style="font-size:16px;font-weight:700;color:#3B6FB8;margin:0;">Verifica tu correo</p>
+                    <p style="font-size:16px;font-weight:400;color:#64748B;margin:0;">Enviamos un código de 6 dígitos a</p>
+                    <p style="font-size:14px;font-weight:600;color:#334155;margin:0;">@CorreoOculto</p>
+                </div>
+
+                <!-- 6 digit inputs -->
+                <div style="display:flex;gap:8px;justify-content:center;">
+                    @for (int i = 0; i < 6; i++)
+                    {
+                        var idx = i;
+                        <input id="code-@idx"
+                               maxlength="1"
+                               type="text"
+                               inputmode="numeric"
+                               value="@_codigo[idx]"
+                               @oninput="e => OnCodigoInput(e, idx)"
+                               style="width:44px;height:44px;border:1px solid #E2E8F0;border-radius:8px;text-align:center;font-size:18px;font-weight:600;color:#334155;outline:none;font-family:'Open Sans',sans-serif;" />
+                    }
+                </div>
+
+                <button class="btn-primary" disabled="@(!CanPaso3)" @onclick="() => _step = 4">
+                    Verificar
+                </button>
+            </div>
+        }
+
+        @if (_step == 4)
+        {
+            <!-- Paso 4: Cuenta creada -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center;">
+                <span style="font-size:40px;">🚀</span>
+
+                <div style="background:#E7FFF6;border-radius:100px;padding:6px 20px;">
+                    <span style="font-size:14px;font-weight:600;color:#2BC06E;">¡Cuenta creada con éxito!</span>
+                </div>
+
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                    <p style="font-size:16px;font-weight:700;color:#334155;margin:0;">Bienvenida, @_nombre.Split(' ')[0].</p>
+                    <p style="font-size:14px;font-weight:400;color:#64748B;margin:0;line-height:1.5;">Tu cuenta ha sido verificada y<br/>está lista para usar.</p>
+                </div>
+
+                <button class="btn-primary" @onclick="IrALogin">
+                    Iniciar sesión
+                </button>
+
+                <p style="font-size:14px;color:#64748B;margin:0;">
+                    ¿Tienes dudas? Escríbenos a<br/>
+                    <span style="color:#3B6FB8;font-weight:600;">soporte@aldoc.cl</span>
+                </p>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private int _step = 1;
+    private string _tipoSeleccionado = "";
+    private string _nombre = "", _rut = "", _correo = "", _password = "";
+    private DateOnly? _fechaNac = null;
+    private bool _terminos = false;
+    private string[] _codigo = new string[6];
+
+    private (string, string, string)[] _tipos = new[]
+    {
+        ("Persona natural",
+         "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#3B6FB8\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"/><circle cx=\"12\" cy=\"7\" r=\"4\"/></svg>",
+         "Para usuarios individuales y cuidadores."),
+        ("Profesional de la salud",
+         "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#3B6FB8\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3\"/><path d=\"M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4\"/><circle cx=\"20\" cy=\"10\" r=\"2\"/></svg>",
+         "Para médicos, nutricionistas y especialistas"),
+        ("Centro de salud",
+         "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#3B6FB8\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z\"/><path d=\"M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2\"/><path d=\"M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2\"/><path d=\"M10 6h4\"/><path d=\"M10 10h4\"/><path d=\"M10 14h4\"/><path d=\"M10 18h4\"/></svg>",
+         "Para clínicas, hospitales y centros médicos")
+    };
+
+    private bool CanPaso2 =>
+        !string.IsNullOrWhiteSpace(_nombre) &&
+        _fechaNac.HasValue &&
+        !string.IsNullOrWhiteSpace(_rut) &&
+        !string.IsNullOrWhiteSpace(_correo) &&
+        !string.IsNullOrWhiteSpace(_password) &&
+        _terminos;
+
+    private bool CanPaso3 => _codigo.All(c => !string.IsNullOrEmpty(c));
+
+    private string CorreoOculto
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(_correo)) return "";
+            var parts = _correo.Split('@');
+            if (parts.Length != 2) return _correo;
+            var name = parts[0];
+            var shown = name.Length > 3 ? name[..3] : name;
+            return $"{shown}***@{parts[1]}";
+        }
+    }
+
+    private void OnCodigoInput(ChangeEventArgs e, int idx)
+    {
+        var val = e.Value?.ToString() ?? "";
+        _codigo[idx] = val.Length > 0 ? val[^1..] : "";
+    }
+
+    private void Volver() => _step--;
+
+    private void IrALogin()
+    {
+        Session.SplashShown = true;
+        Nav.NavigateTo("/login");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !Session.SplashShown)
+            Nav.NavigateTo("/", replace: true);
+    }
+}

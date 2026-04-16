@@ -1,0 +1,110 @@
+/* Aldoc — Design tokens */
+:root {
+    --color-primary: #3B6FB8;
+    --color-text: #334155;
+    --color-text-secondary: #64748B;
+    --color-placeholder: #94A3B8;
+    --color-border: #CBD5E1;
+    --color-border-focus: #3B6FB8;
+    --color-bg: #FFFFFF;
+    --color-disabled-bg: #E2E8F0;
+    --color-disabled-text: #94A3B8;
+
+    --font: 'Open Sans', sans-serif;
+    --radius-input: 8px;
+    --radius-btn: 100px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    height: 100%;
+    font-family: var(--font);
+    background: var(--color-bg);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── Field ── */
+.field { display: flex; flex-direction: column; gap: 6px; }
+
+.field label {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--color-text);
+}
+
+.field input {
+    height: 44px;
+    padding: 10px 14px;
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-input);
+    outline: none;
+    transition: border-color 0.15s;
+    width: 100%;
+}
+
+.field input::placeholder { color: var(--color-placeholder); }
+.field input:focus { border-color: var(--color-border-focus); }
+
+/* ── Date input ── */
+.input-date {
+    height: 44px;
+    padding: 10px 14px;
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-input);
+    outline: none;
+    width: 100%;
+    cursor: pointer;
+}
+.input-date:focus { border-color: var(--color-border-focus); }
+.input-date::-webkit-calendar-picker-indicator { cursor: pointer; opacity: 0.6; }
+
+/* ── Button ── */
+.btn-primary {
+    width: 100%;
+    height: 41px;
+    border: none;
+    border-radius: var(--radius-btn);
+    background: var(--color-primary);
+    color: #fff;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+
+.btn-primary:disabled {
+    background: var(--color-disabled-bg);
+    color: var(--color-disabled-text);
+    cursor: default;
+}
+
+/* ── Checkbox ── */
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--color-text);
+}
+
+.checkbox-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+}
