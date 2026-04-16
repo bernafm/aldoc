@@ -191,33 +191,33 @@ html, body {
 
 .dash-hero-body { display: flex; align-items: flex-start; gap: 12px; }
 
-.dash-hero-text { flex: 1; padding-top: 4px; }
+.dash-hero-text { flex: 1; display: flex; flex-direction: column; gap: 0; }
 .dash-hero-title {
     font-size: 16px;
     font-weight: 700;
     color: var(--color-primary);
     letter-spacing: -0.48px;
     line-height: 24px;
-    margin: 0 0 2px;
+    margin: 0;
 }
 .dash-hero-subtitle {
     font-size: 12px;
     color: var(--color-text-secondary);
     line-height: 18px;
-    margin: 0 0 8px;
+    margin: 0 0 16px;
 }
 
 .dash-checks {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4px;
+    gap: 6px 4px;
 }
 .dash-check-item { display: flex; align-items: center; gap: 4px; }
 .dash-check-circle {
     width: 16px;
     height: 16px;
     border-radius: 999px;
-    border: 1px solid var(--color-primary);
+    border: 1.5px solid var(--color-primary);
     background: #fff;
     display: flex;
     align-items: center;
@@ -233,13 +233,31 @@ html, body {
 
 .dash-hero-footer {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     padding-top: 8px;
     border-top: 1px solid rgba(0,0,0,0.05);
+    gap: 8px;
 }
 .dash-hero-footer--center { justify-content: center; }
-.dash-hero-stat { font-size: 12px; color: var(--color-text); }
-.dash-hero-stat strong { color: var(--color-text); }
+.dash-hero-stat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--color-text);
+}
+.dash-hero-stat strong { font-weight: 700; color: var(--color-text); }
+.dash-stat-pill {
+    width: 24px;
+    height: 24px;
+    border-radius: 100px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
 
 /* ── Welcome card (new user) ── */
 .dash-welcome {
