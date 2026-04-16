@@ -24,6 +24,17 @@
         </div>
     </div>
 
+    <!-- Dev: selector de estado -->
+    <div style="display:flex;gap:6px;padding:8px 16px;background:#F1F5F9;border-bottom:1px solid #E2E8F0;overflow-x:auto;">
+        @foreach (var (label, idx) in new[]{("Nuevo",0),("Incompleto",1),("Parcial",2),("Completo",3)})
+        {
+            <button @onclick="() => _estado = idx"
+                    style="padding:4px 12px;border-radius:100px;border:none;font-family:'Open Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;background:@(_estado==idx?"#3B6FB8":"#fff");color:@(_estado==idx?"#fff":"#64748B");">
+                @label
+            </button>
+        }
+    </div>
+
     <!-- Scrollable content -->
     <div class="dash-scroll">
 
