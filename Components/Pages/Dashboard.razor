@@ -5,19 +5,19 @@
 
 <PageTitle>Inicio — Aldoc</PageTitle>
 
-<div style="min-height:100vh;background:#F8FAFC;display:flex;flex-direction:column;font-family:'Open Sans',sans-serif;max-width:480px;margin:0 auto;position:relative;">
+<div class="dash-root">
 
     <!-- Top bar -->
-    <div style="position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #F1F5F9;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;">
-        <img src="/images/logo.svg" alt="aldoc" style="height:28px;" />
-        <div style="display:flex;gap:8px;">
-            <button style="width:36px;height:36px;border:1px solid #E2E8F0;border-radius:8px;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <div class="dash-topbar">
+        <img src="/images/logo.svg" alt="aldoc" class="dash-topbar-logo" />
+        <div class="dash-topbar-icons">
+            <button class="dash-icon-btn">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
                 </svg>
             </button>
-            <button style="width:36px;height:36px;border:1px solid #E2E8F0;border-radius:8px;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <button class="dash-icon-btn">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
                 </svg>
             </button>
@@ -25,409 +25,316 @@
     </div>
 
     <!-- Scrollable content -->
-    <div style="flex:1;overflow-y:auto;padding:16px 16px 84px;">
+    <div class="dash-scroll">
 
-        <!-- ═══════════════ ESTADO 0: Usuario nuevo ═══════════════ -->
+        <!-- ═══ ESTADO 0: Usuario nuevo ═══ -->
         @if (_estado == 0)
         {
-            <!-- Welcome card -->
-            <div style="background:#EFF6FF;border-radius:16px;padding:16px;margin-bottom:20px;">
-                <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;">
-                    <div style="width:52px;height:52px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                        <img src="/images/doctor.svg" alt="" style="width:38px;height:38px;" />
+            <div class="dash-welcome">
+                <div class="dash-welcome-header">
+                    <div class="dash-welcome-avatar">
+                        <img src="/images/doctor.svg" alt="" />
                     </div>
                     <div>
-                        <p style="font-size:15px;font-weight:700;color:#1E3A5F;margin:0 0 4px;">¡Bienvenido a Aldoc!</p>
-                        <p style="font-size:13px;color:#64748B;margin:0;line-height:1.4;">Configura tu perfil para que podamos acompañarte mejor en tu salud.</p>
+                        <p class="dash-welcome-title">¡Bienvenido a Aldoc!</p>
+                        <p class="dash-welcome-sub">Configura tu perfil para que podamos acompañarte mejor en tu salud.</p>
                     </div>
                 </div>
-                <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
-                    <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:16px;">❤️</span><span style="font-size:14px;color:#334155;">Completa tu ficha de salud</span></div>
-                    <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:16px;">🔥</span><span style="font-size:14px;color:#334155;">Registra lo que comes hoy</span></div>
-                    <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:16px;">🥛</span><span style="font-size:14px;color:#334155;">Lleva tu hidratación</span></div>
-                    <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:16px;">⏱️</span><span style="font-size:14px;color:#334155;">Anota tu movimiento diario</span></div>
+                <div class="dash-welcome-list">
+                    <div class="dash-welcome-item"><span>❤️</span><span>Completa tu ficha de salud</span></div>
+                    <div class="dash-welcome-item"><span>🔥</span><span>Registra lo que comes hoy</span></div>
+                    <div class="dash-welcome-item"><span>🥛</span><span>Lleva tu hidratación</span></div>
+                    <div class="dash-welcome-item"><span>⏱️</span><span>Anota tu movimiento diario</span></div>
                 </div>
-                <button style="width:100%;height:44px;background:#1E3A5F;border:none;border-radius:100px;color:#fff;font-family:'Open Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+                <button class="dash-welcome-cta">
                     Comenzar configuración
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </button>
             </div>
 
-            <!-- Hábitos vacíos -->
-            <p style="font-size:16px;font-weight:700;color:#1E293B;margin:0 0 12px;">Hábitos</p>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
-                <div style="background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                        <div style="display:flex;align-items:center;gap:6px;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-                            <span style="font-size:13px;font-weight:600;color:#F97316;">Calorías</span>
-                        </div>
-                        <span style="font-size:16px;color:#CBD5E1;letter-spacing:1px;">···</span>
-                    </div>
-                    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4px;">
-                        <div><span style="font-size:22px;font-weight:700;color:#1E293B;">0</span><span style="font-size:12px;color:#64748B;margin-left:2px;">Kcal</span><div style="font-size:11px;color:#94A3B8;">de 2000 kcal</div></div>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                    </div>
-                    <div style="height:6px;background:#F1F5F9;border-radius:3px;margin:6px 0;"><div style="height:100%;width:0%;background:#F97316;border-radius:3px;"></div></div>
-                    <div style="font-size:11px;color:#94A3B8;text-align:right;">0% completado</div>
-                </div>
-                <div style="background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                        <div style="display:flex;align-items:center;gap:6px;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            <span style="font-size:13px;font-weight:600;color:#8B5CF6;">Movimiento</span>
-                        </div>
-                        <span style="font-size:16px;color:#CBD5E1;letter-spacing:1px;">···</span>
-                    </div>
-                    <div><span style="font-size:22px;font-weight:700;color:#1E293B;">0</span><span style="font-size:12px;color:#64748B;margin-left:2px;">min/sem</span><div style="font-size:11px;color:#94A3B8;">de 300 min/sem</div></div>
-                    <div style="height:6px;background:#F1F5F9;border-radius:3px;margin:6px 0;"><div style="height:100%;width:0%;background:#8B5CF6;border-radius:3px;"></div></div>
-                    <div style="font-size:11px;color:#94A3B8;text-align:right;">0% completado</div>
-                </div>
-                <div style="background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                        <div style="display:flex;align-items:center;gap:6px;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-                            <span style="font-size:13px;font-weight:600;color:#0EA5E9;">Agua</span>
-                        </div>
-                        <span style="font-size:16px;color:#CBD5E1;letter-spacing:1px;">···</span>
-                    </div>
-                    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4px;">
-                        <div><span style="font-size:22px;font-weight:700;color:#1E293B;">0</span><span style="font-size:12px;color:#64748B;margin-left:2px;">vasos</span><div style="font-size:11px;color:#94A3B8;">de 8</div></div>
-                        <div style="display:flex;gap:6px;">
-                            <button style="width:26px;height:26px;border:1px solid #E2E8F0;border-radius:50%;background:#fff;cursor:pointer;font-size:14px;color:#64748B;display:flex;align-items:center;justify-content:center;padding:0;">−</button>
-                            <button style="width:26px;height:26px;border:1px solid #E2E8F0;border-radius:50%;background:#fff;cursor:pointer;font-size:14px;color:#64748B;display:flex;align-items:center;justify-content:center;padding:0;">+</button>
-                        </div>
-                    </div>
-                    <div style="height:6px;background:#F1F5F9;border-radius:3px;margin:6px 0;"><div style="height:100%;width:0%;background:#0EA5E9;border-radius:3px;"></div></div>
-                    <div style="font-size:11px;color:#94A3B8;text-align:right;">0% completado</div>
-                </div>
-                <div style="background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                        <div style="display:flex;align-items:center;gap:6px;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><path d="M6 9l3 1 1 6 2-4 2 4 1-6 3-1"/><circle cx="7" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
-                            <span style="font-size:13px;font-weight:600;color:#22C55E;">Pasos</span>
-                        </div>
-                        <span style="font-size:16px;color:#CBD5E1;letter-spacing:1px;">···</span>
-                    </div>
-                    <div><span style="font-size:22px;font-weight:700;color:#1E293B;">0</span><span style="font-size:12px;color:#64748B;margin-left:2px;">pasos</span><div style="font-size:11px;color:#94A3B8;">de 8.000 pasos</div></div>
-                    <div style="height:6px;background:#F1F5F9;border-radius:3px;margin:6px 0;"><div style="height:100%;width:0%;background:#22C55E;border-radius:3px;"></div></div>
-                    <div style="font-size:11px;color:#94A3B8;text-align:right;">0% completado</div>
-                </div>
+            <p class="dash-section-title">Hábitos</p>
+            <div class="dash-habits-grid">
+                @HabitoVacio("Calorías", "cal", "0", "Kcal", "de 2000 kcal", camara: true)
+                @HabitoVacio("Movimiento", "mov", "0", "min/sem", "de 300 min/sem")
+                @HabitoVacio("Agua", "agua", "0", "vasos", "de 8", plusMinus: true)
+                @HabitoVacio("Pasos", "pasos", "0", "pasos", "de 8.000 pasos")
             </div>
 
-            <!-- Próximas citas vacío -->
-            <p style="font-size:16px;font-weight:700;color:#1E293B;margin:0 0 12px;">Próximas citas</p>
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0;margin-bottom:20px;">
-                <span style="font-size:14px;color:#64748B;">No tienes consultas</span>
-                <button style="padding:8px 20px;border:1px solid #CBD5E1;border-radius:100px;background:#fff;font-family:'Open Sans',sans-serif;font-size:14px;font-weight:600;color:#334155;cursor:pointer;">Agendar</button>
+            <p class="dash-section-title">Próximas citas</p>
+            <div class="dash-cita-empty">
+                <span class="dash-cita-empty-text">No tienes consultas</span>
+                <button class="dash-cita-empty-btn">Agendar</button>
             </div>
 
-            <!-- Mis mediciones -->
-            <p style="font-size:16px;font-weight:700;color:#1E293B;margin:0 0 12px;">Mis mediciones</p>
+            <p class="dash-section-title">Mis mediciones</p>
             @MedicionesRow
         }
 
-        <!-- ═══════════════ ESTADOS 1, 2, 3 comparten hero card ═══════════════ -->
-        @if (_estado == 1 || _estado == 2 || _estado == 3)
+        <!-- ═══ ESTADOS 1, 2, 3: con hero card ═══ -->
+        @if (_estado >= 1)
         {
-            <!-- Hero card con gauge circular -->
-            <div style="background:@(_estado == 3 ? "#ECFDF5" : "#EFF6FF");border-radius:16px;padding:16px;margin-bottom:16px;">
-                <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
-                    <!-- Gauge SVG -->
-                    <div style="flex-shrink:0;">
-                        <svg width="80" height="80" viewBox="0 0 100 100">
-                            <!-- Track 270° -->
-                            <circle cx="50" cy="50" r="38" fill="none" stroke="#E2E8F0" stroke-width="8"
-                                stroke-dasharray="@TrackDash" stroke-linecap="round"
-                                transform="rotate(135 50 50)" />
-                            <!-- Progress -->
-                            <circle cx="50" cy="50" r="38" fill="none" stroke="#22C55E" stroke-width="8"
-                                stroke-dasharray="@ProgressDash" stroke-linecap="round"
-                                transform="rotate(135 50 50)" />
-                            <text x="50" y="47" text-anchor="middle" font-family="'Open Sans',sans-serif" font-size="18" font-weight="700" fill="#1E293B">@HeroNum</text>
-                            <text x="50" y="62" text-anchor="middle" font-family="'Open Sans',sans-serif" font-size="11" fill="#64748B">de 4</text>
-                        </svg>
-                    </div>
-                    <!-- Text + checkboxes -->
-                    <div style="flex:1;padding-top:4px;">
-                        <p style="font-size:15px;font-weight:700;color:#1E3A5F;margin:0 0 3px;">@HeroSaludo</p>
-                        <p style="font-size:12px;color:#64748B;margin:0 0 10px;line-height:1.4;">@HeroSubtitulo</p>
-                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">
-                            <div style="display:flex;align-items:center;gap:5px;">
-                                <div style="width:17px;height:17px;border-radius:50%;border:1.5px solid @(_calOk ? "#22C55E" : "#CBD5E1");background:@(_calOk ? "#22C55E" : "transparent");display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                                    @if (_calOk) { <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> }
-                                </div>
-                                <span style="font-size:11px;color:#64748B;">Calorías</span>
-                            </div>
-                            <div style="display:flex;align-items:center;gap:5px;">
-                                <div style="width:17px;height:17px;border-radius:50%;border:1.5px solid @(_aguaOk ? "#22C55E" : "#CBD5E1");background:@(_aguaOk ? "#22C55E" : "transparent");display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                                    @if (_aguaOk) { <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> }
-                                </div>
-                                <span style="font-size:11px;color:#64748B;">Agua</span>
-                            </div>
-                            <div style="display:flex;align-items:center;gap:5px;">
-                                <div style="width:17px;height:17px;border-radius:50%;border:1.5px solid @(_movOk ? "#22C55E" : "#CBD5E1");background:@(_movOk ? "#22C55E" : "transparent");display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                                    @if (_movOk) { <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> }
-                                </div>
-                                <span style="font-size:11px;color:#64748B;">Movimiento</span>
-                            </div>
-                            <div style="display:flex;align-items:center;gap:5px;">
-                                <div style="width:17px;height:17px;border-radius:50%;border:1.5px solid @(_pasosOk ? "#22C55E" : "#CBD5E1");background:@(_pasosOk ? "#22C55E" : "transparent");display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                                    @if (_pasosOk) { <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> }
-                                </div>
-                                <span style="font-size:11px;color:#64748B;">Pasos</span>
-                            </div>
+            <!-- Hero card -->
+            <div class="dash-hero @(_estado == 3 ? "dash-hero--done" : "")">
+                <div class="dash-hero-body">
+                    <!-- Gauge circular -->
+                    <svg width="90" height="90" viewBox="0 0 100 100" style="flex-shrink:0;">
+                        <circle cx="50" cy="50" r="36" fill="none" stroke="#E5F3FF" stroke-width="14"
+                            stroke-dasharray="@TrackDash" stroke-linecap="round"
+                            transform="rotate(135 50 50)" />
+                        <circle cx="50" cy="50" r="36" fill="none" stroke="#2BC06E" stroke-width="14"
+                            stroke-dasharray="@ProgressDash" stroke-linecap="round"
+                            transform="rotate(135 50 50)" />
+                        <text x="50" y="46" text-anchor="middle" font-family="'Open Sans',sans-serif" font-size="20" font-weight="700" fill="#3B6FB8">@HeroNum</text>
+                        <text x="50" y="60" text-anchor="middle" font-family="'Open Sans',sans-serif" font-size="10" fill="#64748B">de 4</text>
+                    </svg>
+                    <!-- Texto + checkboxes -->
+                    <div class="dash-hero-text">
+                        <p class="dash-hero-title">@HeroSaludo</p>
+                        <p class="dash-hero-subtitle">@HeroSubtitulo</p>
+                        <div class="dash-checks">
+                            @CheckItem("Calorías", _calOk)
+                            @CheckItem("Agua", _aguaOk)
+                            @CheckItem("Movimiento", _movOk)
+                            @CheckItem("Pasos", _pasosOk)
                         </div>
                     </div>
                 </div>
-                <!-- Footer -->
-                <div style="display:flex;justify-content:@(_estado == 3 ? "center" : "space-between");border-top:1px solid rgba(0,0,0,0.06);padding-top:10px;">
-                    <span style="font-size:12px;color:#64748B;">🔥 <strong style="color:#1E293B;">7 días</strong> de racha activa!</span>
+                <div class="dash-hero-footer @(_estado == 3 ? "dash-hero-footer--center" : "")">
+                    <span class="dash-hero-stat">🔥 <strong>7 días</strong> de racha activa!</span>
                     @if (_estado != 3)
                     {
-                        <span style="font-size:12px;color:#64748B;">⏱️ @(4 - HeroNum) hábitos pendientes</span>
+                        <span class="dash-hero-stat">⏱️ @(4 - HeroNum) hábitos pendientes</span>
                     }
                 </div>
             </div>
-        }
 
-        <!-- CTA banner (solo estado 1) -->
-        @if (_estado == 1)
-        {
-            <div style="background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-                <div style="width:36px;height:36px;border-radius:8px;background:#EFF6FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B6FB8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <!-- CTA banner (solo estado 1) -->
+            @if (_estado == 1)
+            {
+                <div class="dash-cta-banner">
+                    <div class="dash-cta-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B6FB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    </div>
+                    <div style="flex:1;">
+                        <p class="dash-cta-title">Terminar de configurar tu salud</p>
+                        <p class="dash-cta-sub">Revisa y completa tu información médica</p>
+                    </div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </div>
+            }
+
+            <!-- Mis mediciones (primero en estado 3) -->
+            @if (_estado == 3)
+            {
+                <p class="dash-section-title">Mis mediciones</p>
+                @MedicionesRow
+            }
+
+            <!-- Próximas citas -->
+            <p class="dash-section-title">Próximas citas</p>
+            <div class="dash-cita">
+                <div class="dash-cita-icon">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3B6FB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
                 </div>
                 <div style="flex:1;">
-                    <p style="font-size:14px;font-weight:600;color:#334155;margin:0 0 2px;">Terminar de configurar tu salud</p>
-                    <p style="font-size:12px;color:#64748B;margin:0;">Revisa y completa tu información médica</p>
+                    <p class="dash-cita-title">Consulta nutricional</p>
+                    <p class="dash-cita-sub">7 abr 2026 · 10:30</p>
                 </div>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </div>
-        }
-
-        <!-- Mis mediciones (primero en estado 3) -->
-        @if (_estado == 3)
-        {
-            <p style="font-size:16px;font-weight:700;color:#1E293B;margin:0 0 12px;">Mis mediciones</p>
-            @MedicionesRow
-        }
-
-        <!-- Próximas citas (estados 1, 2, 3) -->
-        @if (_estado == 1 || _estado == 2 || _estado == 3)
-        {
-            <p style="font-size:16px;font-weight:700;color:#1E293B;margin:0 0 12px;">Próximas citas</p>
-            <div style="border:1px solid #3B6FB8;border-radius:12px;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:12px;">
-                <div style="width:36px;height:36px;border-radius:8px;background:#EFF6FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B6FB8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-                </div>
-                <div style="flex:1;">
-                    <p style="font-size:14px;font-weight:600;color:#1E293B;margin:0 0 2px;">Consulta nutricional</p>
-                    <p style="font-size:12px;color:#64748B;margin:0;">7 abr 2026 10:30</p>
-                </div>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </div>
-        }
-
-        <!-- Hábitos (estados 1, 2) -->
-        @if (_estado == 1 || _estado == 2)
-        {
-            <p style="font-size:16px;font-weight:700;color:#1E293B;margin:0 0 12px;">Hábitos</p>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
-                <!-- Calorías -->
-                <div style="background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                        <div style="display:flex;align-items:center;gap:6px;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-                            <span style="font-size:13px;font-weight:600;color:#F97316;">Calorías</span>
-                        </div>
-                        <span style="font-size:16px;color:#CBD5E1;letter-spacing:1px;">···</span>
-                    </div>
-                    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4px;">
-                        <div><span style="font-size:22px;font-weight:700;color:#1E293B;">1400</span><span style="font-size:12px;color:#64748B;margin-left:2px;">Kcal</span><div style="font-size:11px;color:#94A3B8;">de 2000 kcal</div></div>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                    </div>
-                    <div style="height:6px;background:#F1F5F9;border-radius:3px;margin:6px 0;overflow:hidden;"><div style="height:100%;width:70%;background:#F97316;border-radius:3px;"></div></div>
-                    <div style="font-size:11px;color:#94A3B8;text-align:right;">70% completado</div>
-                </div>
-                <!-- Movimiento -->
-                <div style="background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                        <div style="display:flex;align-items:center;gap:6px;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            <span style="font-size:13px;font-weight:600;color:#8B5CF6;">Movimiento</span>
-                        </div>
-                        <span style="font-size:16px;color:#CBD5E1;letter-spacing:1px;">···</span>
-                    </div>
-                    <div><span style="font-size:22px;font-weight:700;color:#1E293B;">120</span><span style="font-size:12px;color:#64748B;margin-left:2px;">min/sem</span><div style="font-size:11px;color:#94A3B8;">de 300 min/sem</div></div>
-                    <div style="height:6px;background:#F1F5F9;border-radius:3px;margin:6px 0;overflow:hidden;"><div style="height:100%;width:50%;background:#8B5CF6;border-radius:3px;"></div></div>
-                    <div style="font-size:11px;color:#94A3B8;text-align:right;">50% completado</div>
-                </div>
-                <!-- Agua -->
-                <div style="background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                        <div style="display:flex;align-items:center;gap:6px;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-                            <span style="font-size:13px;font-weight:600;color:#0EA5E9;">Agua</span>
-                        </div>
-                        <span style="font-size:16px;color:#CBD5E1;letter-spacing:1px;">···</span>
-                    </div>
-                    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4px;">
-                        <div><span style="font-size:22px;font-weight:700;color:#1E293B;">4</span><span style="font-size:12px;color:#64748B;margin-left:2px;">vasos</span><div style="font-size:11px;color:#94A3B8;">de 8</div></div>
-                        <div style="display:flex;gap:6px;">
-                            <button style="width:26px;height:26px;border:1px solid #E2E8F0;border-radius:50%;background:#fff;cursor:pointer;font-size:14px;color:#64748B;display:flex;align-items:center;justify-content:center;padding:0;">−</button>
-                            <button style="width:26px;height:26px;border:1px solid #E2E8F0;border-radius:50%;background:#fff;cursor:pointer;font-size:14px;color:#64748B;display:flex;align-items:center;justify-content:center;padding:0;">+</button>
-                        </div>
-                    </div>
-                    <div style="height:6px;background:#F1F5F9;border-radius:3px;margin:6px 0;overflow:hidden;"><div style="height:100%;width:40%;background:#0EA5E9;border-radius:3px;"></div></div>
-                    <div style="font-size:11px;color:#94A3B8;text-align:right;">40% completado</div>
-                </div>
-                <!-- Pasos -->
-                <div style="background:#F0FDF4;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                        <div style="display:flex;align-items:center;gap:6px;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><path d="M6 9l3 1 1 6 2-4 2 4 1-6 3-1"/><circle cx="7" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
-                            <span style="font-size:13px;font-weight:600;color:#22C55E;">Pasos</span>
-                        </div>
-                        <span style="font-size:16px;color:#CBD5E1;letter-spacing:1px;">···</span>
-                    </div>
-                    <div><span style="font-size:22px;font-weight:700;color:#1E293B;">8.200</span><span style="font-size:12px;color:#64748B;margin-left:2px;">pasos</span><div style="font-size:11px;color:#94A3B8;">de 8.000 pasos</div></div>
-                    <div style="height:6px;background:#F1F5F9;border-radius:3px;margin:6px 0;overflow:hidden;"><div style="height:100%;width:100%;background:#22C55E;border-radius:3px;"></div></div>
-                    <div style="font-size:11px;color:#22C55E;text-align:right;">¡Objetivo alcanzado!</div>
-                </div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </div>
 
-            <!-- Mis mediciones (estados 1, 2) -->
-            <p style="font-size:16px;font-weight:700;color:#1E293B;margin:0 0 12px;">Mis mediciones</p>
-            @MedicionesRow
-        }
+            <!-- Hábitos (estados 1 y 2) -->
+            @if (_estado == 1 || _estado == 2)
+            {
+                <p class="dash-section-title">Hábitos</p>
+                <div class="dash-habits-grid">
+                    @HabitoConDatos("Calorías", "cal", "1400", "Kcal", "de 2000 kcal", 70, camara: true)
+                    @HabitoConDatos("Movimiento", "mov", "120", "min/sem", "de 300 min/sem", 50)
+                    @HabitoConDatos("Agua", "agua", "4", "vasos", "de 8", 40, plusMinus: true)
+                    @HabitoConDatos("Pasos", "pasos", "8.200", "pasos", "de 8.000 pasos", 100, done: true, statusText: "¡Objetivo alcanzado!")
+                </div>
 
-        <!-- Hábitos completos (estado 3) -->
-        @if (_estado == 3)
-        {
-            <p style="font-size:16px;font-weight:700;color:#1E293B;margin:0 0 12px;">Hábitos</p>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
-                <div style="background:#FFF7ED;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                        <div style="display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg><span style="font-size:13px;font-weight:600;color:#F97316;">Calorías</span></div>
-                        <span style="font-size:16px;color:#CBD5E1;letter-spacing:1px;">···</span>
-                    </div>
-                    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4px;">
-                        <div><span style="font-size:22px;font-weight:700;color:#1E293B;">2000</span><span style="font-size:12px;color:#64748B;margin-left:2px;">Kcal</span><div style="font-size:11px;color:#94A3B8;">de 2000 kcal</div></div>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                    </div>
-                    <div style="height:6px;background:#F1F5F9;border-radius:3px;margin:6px 0;overflow:hidden;"><div style="height:100%;width:100%;background:#F97316;border-radius:3px;"></div></div>
-                    <div style="font-size:11px;color:#F97316;text-align:right;">¡Cumpliste tu meta!</div>
+                <p class="dash-section-title">Mis mediciones</p>
+                @MedicionesRow
+            }
+
+            <!-- Hábitos completos (estado 3) -->
+            @if (_estado == 3)
+            {
+                <p class="dash-section-title">Hábitos</p>
+                <div class="dash-habits-grid">
+                    @HabitoConDatos("Calorías", "cal", "2000", "Kcal", "de 2000 kcal", 100, camara: true, done: true, statusText: "¡Cumpliste tu meta!")
+                    @HabitoConDatos("Movimiento", "mov", "300", "min/sem", "de 300 min/sem", 100, done: true, statusText: "¡Muy bien!")
+                    @HabitoConDatos("Agua", "agua", "8", "vasos", "de 8", 100, plusMinus: true, done: true, statusText: "¡Te mantuviste hidratado hoy!")
+                    @HabitoConDatos("Pasos", "pasos", "8.200", "pasos", "de 8.000 pasos", 100, done: true, statusText: "¡Superaste un 10% tu objetivo!")
                 </div>
-                <div style="background:#F5F3FF;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                        <div style="display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span style="font-size:13px;font-weight:600;color:#8B5CF6;">Movimiento</span></div>
-                        <span style="font-size:16px;color:#CBD5E1;letter-spacing:1px;">···</span>
-                    </div>
-                    <div><span style="font-size:22px;font-weight:700;color:#1E293B;">300</span><span style="font-size:12px;color:#64748B;margin-left:2px;">min/sem</span><div style="font-size:11px;color:#94A3B8;">de 300 min/sem</div></div>
-                    <div style="height:6px;background:#F1F5F9;border-radius:3px;margin:6px 0;overflow:hidden;"><div style="height:100%;width:100%;background:#8B5CF6;border-radius:3px;"></div></div>
-                    <div style="font-size:11px;color:#8B5CF6;text-align:right;">¡Muy bien!</div>
-                </div>
-                <div style="background:#F0F9FF;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                        <div style="display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg><span style="font-size:13px;font-weight:600;color:#0EA5E9;">Agua</span></div>
-                        <span style="font-size:16px;color:#CBD5E1;letter-spacing:1px;">···</span>
-                    </div>
-                    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4px;">
-                        <div><span style="font-size:22px;font-weight:700;color:#1E293B;">8</span><span style="font-size:12px;color:#64748B;margin-left:2px;">vasos</span><div style="font-size:11px;color:#94A3B8;">de 8</div></div>
-                        <div style="display:flex;gap:6px;">
-                            <button style="width:26px;height:26px;border:1px solid #E2E8F0;border-radius:50%;background:#fff;cursor:pointer;font-size:14px;color:#64748B;display:flex;align-items:center;justify-content:center;padding:0;">−</button>
-                            <button style="width:26px;height:26px;border:1px solid #E2E8F0;border-radius:50%;background:#fff;cursor:pointer;font-size:14px;color:#64748B;display:flex;align-items:center;justify-content:center;padding:0;">+</button>
-                        </div>
-                    </div>
-                    <div style="height:6px;background:#F1F5F9;border-radius:3px;margin:6px 0;overflow:hidden;"><div style="height:100%;width:100%;background:#0EA5E9;border-radius:3px;"></div></div>
-                    <div style="font-size:11px;color:#0EA5E9;text-align:right;">¡Te mantuviste hidratado hoy!</div>
-                </div>
-                <div style="background:#F0FDF4;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                        <div style="display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><path d="M6 9l3 1 1 6 2-4 2 4 1-6 3-1"/><circle cx="7" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg><span style="font-size:13px;font-weight:600;color:#22C55E;">Pasos</span></div>
-                        <span style="font-size:16px;color:#CBD5E1;letter-spacing:1px;">···</span>
-                    </div>
-                    <div><span style="font-size:22px;font-weight:700;color:#1E293B;">8.200</span><span style="font-size:12px;color:#64748B;margin-left:2px;">pasos</span><div style="font-size:11px;color:#94A3B8;">de 8.000 pasos</div></div>
-                    <div style="height:6px;background:#F1F5F9;border-radius:3px;margin:6px 0;overflow:hidden;"><div style="height:100%;width:100%;background:#22C55E;border-radius:3px;"></div></div>
-                    <div style="font-size:11px;color:#22C55E;text-align:right;">¡Superaste un 10% tu objetivo!</div>
-                </div>
-            </div>
+            }
         }
 
     </div>
 
-    <!-- Bottom navigation -->
-    <div style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:64px;background:#fff;border-top:1px solid #F1F5F9;display:flex;align-items:center;justify-content:space-around;z-index:10;">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;min-width:56px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-            <span style="font-size:10px;color:#94A3B8;">Nutrición</span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;min-width:56px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            <span style="font-size:10px;color:#94A3B8;">Mi Salud</span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;min-width:56px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3B6FB8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            <span style="font-size:10px;color:#3B6FB8;font-weight:600;">Home</span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;min-width:56px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <span style="font-size:10px;color:#94A3B8;">Agenda</span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;min-width:56px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg>
-            <span style="font-size:10px;color:#94A3B8;">ChatDoc</span>
-        </div>
-    </div>
+    <!-- Bottom nav -->
+    <nav class="dash-nav">
+        <button class="dash-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            <span class="dash-nav-label">Nutrición</span>
+        </button>
+        <button class="dash-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span class="dash-nav-label">Mi Salud</span>
+        </button>
+        <button class="dash-nav-item dash-nav-item--active">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B6FB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="dash-nav-label">Home</span>
+        </button>
+        <button class="dash-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span class="dash-nav-label">Agenda</span>
+        </button>
+        <button class="dash-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg>
+            <span class="dash-nav-label">ChatDoc</span>
+        </button>
+    </nav>
 </div>
 
 @code {
     private int _estado = 2; // 0=nuevo, 1=incompleto, 2=parcial, 3=completo
 
-    // Datos por estado
-    private int HeroNum => _estado switch { 0 => 0, 1 => 0, 2 => 1, _ => 4 };
-    private string HeroSaludo => _estado switch { 0 or 1 => "¡Buenos días Berni!", _ => "¡Buenas noches Berni!" };
+    private int    HeroNum      => _estado switch { 2 => 1, 3 => 4, _ => 0 };
+    private string HeroSaludo   => _estado <= 1 ? "¡Buenos días Berni!" : "¡Buenas noches Berni!";
     private string HeroSubtitulo => _estado switch {
-        0 or 1 => "Tu registro de salud empieza aquí",
+        1 => "Tu registro de salud empieza aquí",
         2 => "Vas muy bien! Mantén tu ritmo",
-        _ => "Completaste todos tus hábitos hoy. Bien hecho."
+        3 => "Completaste todos tus hábitos hoy. Bien hecho.",
+        _ => ""
     };
-    private bool _calOk  => _estado == 2 || _estado == 3;
-    private bool _aguaOk => _estado == 3;
-    private bool _movOk  => _estado == 3;
+    private bool _calOk   => _estado == 2 || _estado == 3;
+    private bool _aguaOk  => _estado == 3;
+    private bool _movOk   => _estado == 3;
     private bool _pasosOk => _estado == 3;
 
-    // SVG gauge
-    private const double R = 38, Circ = 2 * Math.PI * R, Arc = Circ * 0.75;
-    private string TrackDash => $"{Arc:F1} {Circ:F1}";
+    private const double R = 36, Circ = 2 * Math.PI * R, Arc = Circ * 0.75;
+    private string TrackDash    => $"{Arc:F1} {Circ:F1}";
     private string ProgressDash => $"{Arc * HeroNum / 4.0:F1} {Circ:F1}";
 
-    // Mediciones como RenderFragment
-    private RenderFragment MedicionesRow =>
-    @<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
-        <div style="background:#F8FAFC;border-radius:12px;padding:12px;">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B6FB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                <span style="font-size:11px;color:#3B6FB8;font-weight:600;">Frecuencia cardíaca</span>
-            </div>
-            <div style="display:flex;align-items:baseline;gap:3px;">
-                <span style="font-size:24px;font-weight:700;color:#1E293B;">72</span>
-                <span style="font-size:12px;color:#64748B;">bpm</span>
-            </div>
-            <span style="font-size:11px;color:#94A3B8;">Hace 2h</span>
+    // ── Checkbox item ──
+    private RenderFragment CheckItem(string label, bool done) =>
+    @<div class="dash-check-item">
+        <div class="dash-check-circle @(done ? "dash-check-circle--done" : "")">
+            @if (done)
+            {
+                <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#2BC06E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            }
         </div>
-        <div style="background:#F8FAFC;border-radius:12px;padding:12px;">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B6FB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                <span style="font-size:11px;color:#3B6FB8;font-weight:600;">Peso</span>
+        <span class="dash-check-label @(done ? "dash-check-label--done" : "")">@label</span>
+    </div>;
+
+    // ── Mediciones ──
+    private RenderFragment MedicionesRow =>
+    @<div class="dash-mediciones-grid">
+        <div class="dash-med-card">
+            <div class="dash-med-label-row">
+                <div class="dash-med-icon">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3B6FB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <span class="dash-med-label">Frecuencia cardíaca</span>
             </div>
-            <div style="display:flex;align-items:baseline;gap:3px;">
-                <span style="font-size:24px;font-weight:700;color:#1E293B;">70</span>
-                <span style="font-size:12px;color:#64748B;">kg</span>
+            <div class="dash-med-value-row">
+                <span class="dash-med-value">72</span>
+                <span class="dash-med-unit">bpm</span>
+            </div>
+            <span class="dash-med-time">Hace 2h</span>
+        </div>
+        <div class="dash-med-card">
+            <div class="dash-med-label-row">
+                <div class="dash-med-icon">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3B6FB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <span class="dash-med-label">Peso</span>
+            </div>
+            <div class="dash-med-value-row">
+                <span class="dash-med-value">70</span>
+                <span class="dash-med-unit">kg</span>
             </div>
         </div>
     </div>;
+
+    // ── Hábito vacío (estado 0) ──
+    private RenderFragment HabitoVacio(string nombre, string tipo, string valor, string unidad, string meta,
+        bool camara = false, bool plusMinus = false) =>
+    @<div class="dash-habit-card">
+        <div class="dash-habit-header">
+            <div class="dash-habit-name-row">
+                @HabitoIcono(tipo)
+                <span class="dash-habit-name">@nombre</span>
+            </div>
+            <span class="dash-habit-dots">···</span>
+        </div>
+        <div class="dash-habit-value-row">
+            <div>
+                <span class="dash-habit-value">@valor</span>
+                <span class="dash-habit-unit">@unidad</span>
+                <div class="dash-habit-meta">@meta</div>
+            </div>
+            @if (camara)
+            {
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            }
+            @if (plusMinus)
+            {
+                <div class="dash-plus-minus">
+                    <button class="dash-pm-btn">−</button>
+                    <button class="dash-pm-btn">+</button>
+                </div>
+            }
+        </div>
+        <div class="dash-bar-track"><div class="dash-bar-fill dash-bar-fill--@tipo" style="width:0%"></div></div>
+        <div class="dash-habit-status">0% completado</div>
+    </div>;
+
+    // ── Hábito con datos ──
+    private RenderFragment HabitoConDatos(string nombre, string tipo, string valor, string unidad, string meta,
+        int pct, bool camara = false, bool plusMinus = false, bool done = false, string statusText = "") =>
+    @<div class="dash-habit-card @(done ? $"dash-habit-card--{tipo}-done" : (tipo == "pasos" && pct == 100 ? "dash-habit-card--pasos-active" : ""))">
+        <div class="dash-habit-header">
+            <div class="dash-habit-name-row">
+                @HabitoIcono(tipo)
+                <span class="dash-habit-name">@nombre</span>
+            </div>
+            <span class="dash-habit-dots">···</span>
+        </div>
+        <div class="dash-habit-value-row">
+            <div>
+                <span class="dash-habit-value">@valor</span>
+                <span class="dash-habit-unit">@unidad</span>
+                <div class="dash-habit-meta">@meta</div>
+            </div>
+            @if (camara)
+            {
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            }
+            @if (plusMinus)
+            {
+                <div class="dash-plus-minus">
+                    <button class="dash-pm-btn">−</button>
+                    <button class="dash-pm-btn">+</button>
+                </div>
+            }
+        </div>
+        <div class="dash-bar-track"><div class="dash-bar-fill dash-bar-fill--@tipo" style="width:@(pct)%"></div></div>
+        <div class="dash-habit-status @(done || pct == 100 ? $"dash-habit-status--{tipo}" : "")">
+            @(string.IsNullOrEmpty(statusText) ? $"{pct}% completado" : statusText)
+        </div>
+    </div>;
+
+    // ── Iconos por hábito ──
+    private RenderFragment HabitoIcono(string tipo) => tipo switch {
+        "cal"   => @<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F97315" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>,
+        "mov"   => @<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6A8BEF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
+        "agua"  => @<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#79C3FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>,
+        _       => @<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#009C8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><path d="M6 9l3 1 1 6 2-4 2 4 1-6 3-1"/><circle cx="7" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+    };
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
