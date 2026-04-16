@@ -41,7 +41,7 @@
                     <span style="font-size:32px;">🔒</span>
                     <p style="font-size:16px;font-weight:700;color:#3B6FB8;margin:0;">¿Olvidaste tu contraseña?</p>
                     <p style="font-size:14px;font-weight:400;color:#64748B;margin:0;line-height:1.5;">
-                        Ingresa tu correo y te enviaremos un enlace para restablecerla.
+                        Ingresa tu correo y te enviaremos un código de verificación.
                     </p>
                 </div>
 
@@ -93,7 +93,7 @@
 
                 <button @onclick="EnviarEnlace"
                         style="background:none;border:none;cursor:pointer;font-size:14px;color:#3B6FB8;font-family:'Open Sans',sans-serif;padding:0;text-decoration:underline;">
-                    ¿No recibiste el enlace? Reenviar
+                    ¿No recibiste el código? Reenviar
                 </button>
             </div>
         }
@@ -127,16 +127,16 @@
         <!-- PASO 4: Éxito -->
         @if (_step == 4)
         {
-            <div style="display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center;">
-                <div style="background:#E7FFF6;border-radius:100px;padding:6px 20px;">
-                    <span style="font-size:14px;font-weight:600;color:#2BC06E;">Contraseña actualizada con éxito</span>
+            <div style="display:flex;flex-direction:column;gap:24px;text-align:center;">
+                <div style="background:#E7FFF6;border-radius:12px;padding:16px;width:100%;">
+                    <p style="font-size:16px;font-weight:700;color:#2BC06E;margin:0;">Contraseña actualizada con éxito</p>
                 </div>
 
-                <p style="font-size:14px;color:#64748B;margin:0;line-height:1.5;">
-                    Tu contraseña fue restablecida exitosamente.<br/>Ya puedes iniciar sesión.
+                <p style="font-size:14px;color:#64748B;margin:0;line-height:1.5;text-align:center;">
+                    Tu contraseña fue restablecida exitosamente. Ya puedes iniciar sesión.
                 </p>
 
-                <button class="btn-primary" @onclick="IrALogin" style="margin-top:16px;">
+                <button class="btn-primary" @onclick="IrALogin">
                     Iniciar sesión
                 </button>
             </div>
