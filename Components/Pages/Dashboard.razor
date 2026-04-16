@@ -76,21 +76,23 @@
             <!-- Hero card -->
             <div class="dash-hero @(_estado == 3 ? "dash-hero--done" : "")">
                 <div class="dash-hero-body">
-                    <!-- Gauge circular -->
-                    <svg width="90" height="90" viewBox="0 0 100 100" style="flex-shrink:0;">
-                        <!-- Track 270° -->
-                        <circle cx="50" cy="50" r="36" fill="none" stroke="#E5F3FF" stroke-width="14"
-                            stroke-dasharray="@TrackDash" stroke-linecap="round"
-                            transform="rotate(135 50 50)" />
-                        <!-- Progreso verde -->
-                        <circle cx="50" cy="50" r="36" fill="none" stroke="#2BC06E" stroke-width="14"
-                            stroke-dasharray="@ProgressDash" stroke-linecap="round"
-                            transform="rotate(135 50 50)" />
+                    <!-- Gauge: arco 270° (herradura, gap abajo) -->
+                    <svg width="90" height="90" viewBox="0 0 100 100" style="flex-shrink:0;overflow:visible;">
+                        <!-- Track gris claro (fondo del arco) -->
+                        <path d="@GaugePath" fill="none"
+                              stroke="#D8E8F8" stroke-width="11" stroke-linecap="round"/>
+                        <!-- Progreso verde (solo si hay avance) -->
+                        @if (HeroNum > 0)
+                        {
+                            <path d="@GaugePath" fill="none"
+                                  stroke="#2BC06E" stroke-width="11" stroke-linecap="round"
+                                  stroke-dasharray="@GaugeProgressDash"/>
+                        }
                         <!-- Número: azul si incompleto, verde si 4/4 -->
                         <text x="50" y="47" text-anchor="middle"
                               font-family="'Open Sans',sans-serif" font-size="22" font-weight="700"
                               fill="@(_estado == 3 ? "#2BC06E" : "#3B6FB8")">@HeroNum</text>
-                        <text x="50" y="61" text-anchor="middle"
+                        <text x="50" y="62" text-anchor="middle"
                               font-family="'Open Sans',sans-serif" font-size="10" font-weight="400"
                               fill="#64748B">de 4</text>
                     </svg>
@@ -232,9 +234,19 @@
     private bool _movOk   => _estado == 3;
     private bool _pasosOk => _estado == 3;
 
-    private const double R = 36, Circ = 2 * Math.PI * R, Arc = Circ * 0.75;
-    private string TrackDash    => $"{Arc:F1} {Circ:F1}";
-    private string ProgressDash => $"{Arc * HeroNum / 4.0:F1} {Circ:F1}";
+    // Gauge: arco de 270° (herradura), no círculo completo
+    // r=38, viewBox 0 0 100 100
+    // Inicio: 135° SVG → (23.13, 76.87) visual 7-8 en punto
+    // Fin:     45° SVG → (76.87, 76.87) visual 4-5 en punto
+    // Sentido: clockwise (sweep-flag=1), large-arc-flag=1 porque 270°>180°
+    private const string GaugePath =
+        "M 23.13 76.87 A 38 38 0 1 1 76.87 76.87";
+
+    // Longitud del arco de 270° = 0.75 * 2π * 38 = 179.07
+    private const double GaugeArcLen = 179.07;
+
+    private string GaugeProgressDash =>
+        $"{GaugeArcLen * HeroNum / 4.0:F2} {GaugeArcLen:F2}";
 
     // ── Checkbox item ──
     private RenderFragment CheckItem(string label, bool done) =>
